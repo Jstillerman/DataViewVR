@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1 Upload your files here!
+  
+  form(id= "uploadForm", enctype="multipart/form-data", action="/upload", method="post")
+    input(type="file", name="ncFile")
+    br
+    br
+    input(type="text", name="uploader", placeholder="Uploader")
+    br
+    br
+    input(type="submit", value="Upload", name="submit")
+    
+   textarea(rows=30, cols=50, form="uploadForm", name="desc", placeholder="Description")
+

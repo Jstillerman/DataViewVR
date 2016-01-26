@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1= title
+  ul(class="collapsibleList")
+    each val, index in entries
+      li
+        a(href="/entry/"+val._id)= val.title
+        ul(class="collapsibleList")
+          each val2, index2 in val.getInfo()
+            li= index2 + ": " + val2
