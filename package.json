@@ -1,0 +1,16 @@
+{
+  "name": "file_upload",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "4.13.3",
+    "glob": "^6.0.4",
+    "mongoose": "^4.3.7",
+    "multer": "1.1.0",
+    "python-shell": "^0.3.0"
+  },
+  "devDependencies": {
+    "should": "~7.1.0",
+    "mocha": "~2.3.3",
+    "supertest": "~1.1.0"
+  }
+}
