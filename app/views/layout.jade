@@ -7,9 +7,12 @@ html(lang='en')
     title= title
     block css
       link(rel='stylesheet', href='/css/style.css')
+      link(rel='stylesheet', href='/css/jquery.dynatable.css')
+      link(rel='stylesheet', href='/css/tables-min.css')
+      link(rel='stylesheet', href='/css/tipsy.css')
     block js
       script(src='https://code.jquery.com/jquery-2.2.0.min.js')
-    
+      script(src='/js/jquery.tipsy.js')
       script(src="/js/AutoListCollapser.js")
       if ENV_DEVELOPMENT
         script(src='http://localhost:35729/livereload.js')

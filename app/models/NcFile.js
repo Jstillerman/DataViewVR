@@ -26,4 +26,16 @@ NcFileSchema.methods.getInfo = function(){
 	};
 };
 
+NcFileSchema.methods.getOverview = function(){
+	return {
+		title: this.title,
+		uploader: this.uploader,
+		date: this.date
+	};
+};
+
+NcFileSchema.methods.getURL = function(){
+	return "/entry/" + this._id;
+};
+
 mongoose.model('NcFile', NcFileSchema);

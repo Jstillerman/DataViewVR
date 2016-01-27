@@ -8,7 +8,10 @@ var util = require('util');
 var glob = require("glob");
 var PythonShell = require("python-shell");
 var fs = require('fs');
+var cors = require('./cors');
 
+
+app.use(cors());
 
 
 mongoose.connect(config.db);
@@ -56,8 +59,9 @@ app.get('/home', function(req, res){
 
 app.get('/entries', function(req, res){
 	NcFile.find(function (err, entries) {
-		if (err) render(res, "error.jade", {message: "An error has occured.", error: err});
-		render(res, "entries.jade", {title:"Entries", entries: entries});
+		if (err){render(res, "error.jade", {message: "An error has occured.", error: err});}
+		else if(entries.length!=0){render(res, "entries.jade", {title:"Entries", entries: entries});}
+		else{ render(res, "message.jade", {title:"No entries", message: "There doesn't appear to be any entries..."})}
 	});
 
 });
@@ -110,7 +114,7 @@ app.post('/upload',function(req,res){
 
 					entry.save(function(err, entry){
 						if (err) render(res, "error.jade", {message: "An error has occured.", error: err});
-						render(res, "entries.jade", {title: "Success", entries: {0: entry}});
+						res.redirect("/entry/" + entry.id);
 					});
 
 				});

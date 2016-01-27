@@ -1,11 +1,26 @@
 extends layout
 
 block content
+  script(src="/js/jquery.dynatable.js")
   h1= title
-  ul(class="collapsibleList")
-    each val, index in entries
-      li
-        a(href="/entry/"+val._id)= val.title
-        ul(class="collapsibleList")
-          each val2, index2 in val.getInfo()
-            li= index2 + ": " + val2
+  
+  table(id="myTable", class="pure-table")
+    thead
+      tr
+        each name, index in entries[0].getOverview()
+          td= index
+        td 
+    tbody
+      each entry, index in entries
+        tr
+          each val, name in entry.getOverview()
+           td= val
+          td
+            a(href=entry.getURL()) View
+     
+  script.
+     $("#myTable").dynatable({
+       table: {
+         defaultColumnIdStyle: 'camelCase'
+       }
+     }); 

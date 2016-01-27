@@ -5,10 +5,62 @@ var mouse = new THREE.Vector2(), INTERSECTED;
 var radius = 100, theta = 0;
 
 
+var blocks = {};
+
+console.log(window.location.href+"/json");
+
 $.getJSON(window.location.href + "/json", function( data ) {
+	console.log("JSON Recieved!");
 	init(data);
 	animate();
-});
+
+	list = document.createElement("ul");
+
+
+	for(var key in data.varnames){
+		console.log(key + ": " +data.varnames[key]);
+        var item = document.createElement('li');
+
+        item.appendChild(document.createTextNode(key));
+        item.setAttribute("title", data.varnames[key]);
+        item.setAttribute("class", "tipsythingy");
+        list.appendChild(item);
+	}
+
+	var target = document.getElementsByClassName("right")[0];
+	target.innerHTML = "";
+	target.appendChild(list);
+
+	$(".tipsythingy").tipsy({"gravity": "e", "fade": true, delayIn: 25});
+
+
+}).fail( function(d, textStatus, error) {
+        console.error("getJSON failed, status: " + textStatus + ", error: "+error);
+    });
+
+
+function setRayVisibility(ray, visible){
+	var iter = []
+	if (ray instanceof Array){iter = ray;}
+	else {iter = [ray];}
+
+	iter.forEach(function(rayNum){
+
+		blocks[rayNum].forEach(function(block){
+			block.visible=visible;
+		});
+
+	});
+	
+}
+
+function rng(x, y){
+	var temp = [];
+	for(var i=x; i<y; i++){
+		temp.push(i);
+	};
+	return temp;
+}
 
 
 function init(data) {
@@ -32,21 +84,31 @@ function init(data) {
 
 	var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 
-	console.log(data);
 
-	for (var ray = 0; ray< data.nray; ray++){
+	for (var ray = 0; ray < data.values.wx.length; ray++){
+		blocks[ray] = [];
 		for (var timestep = 0; timestep < data.values.wx[0].length; timestep++){
-			var object = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: ray/4 * 0xff0000 } ) );
+
 			
+
+			var object = new THREE.Mesh( geometry, new THREE.MeshLambertMaterial( { color: ray/2 * (0xff0000) } ) );
+			
+
+
 			object.position.x = data["values"]["wx"][ray][timestep];
 			object.position.y = data["values"]["wz"][ray][timestep];
 			object.position.z = data["values"]["wy"][ray][timestep];
 
-			scene.add( object );
+			object.visible = (ray <= 3);
 
+			scene.add( object );
+			blocks[ray].push( object );
 		}
+
 		
 	}
+
+	console.log(blocks);
 
 	
 

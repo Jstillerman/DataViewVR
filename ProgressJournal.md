@@ -26,3 +26,8 @@ That's 11 hours at work.
 - True MVC was a little overkill, so I just kept all of the routes/controllers in the main server.js, and that got messy fast.Hopefully I can fix that tomorrow
 
 I really hope I can still read my code tomorrow!
+
+
+###GREAT IDEA
+Unity asks /someinng/:viewnumber/status for a num
+when the num is differnet than previous number, reload blocks from api.
