@@ -2,7 +2,7 @@ extends layout
 
 block content
   script(src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r73/three.min.js")
-  script(src="/js/visualize.js")
+  script(src="/js/preview.js")
   .left(style="float:left;background-color:rgba(240, 240, 240, 0.85);padding:10px;")
     h1= entry.title
     h3 Uploaded by #{entry.uploader}
@@ -11,5 +11,13 @@ block content
       each val, index in entry.getInfo()
         li= index + ": " + val
     a(href=entry.id+"/json") Get JSON
+    br
   .right(style="float:right;background-color:rgba(240, 240, 240, 0.85);padding:10px;")
     h3 Loading Preview...
+
+  script.
+    var leftDiv = document.getElementsByClassName("left")[0];
+    var a = document.createElement("a");
+    a.setAttribute("href", "/visualize/" + encodeURIComponent(window.location.href + "/json"));
+    a.innerHTML = "Send to viewer"
+    leftDiv.appendChild(a);

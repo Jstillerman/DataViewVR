@@ -2,4 +2,10 @@ extends layout
 
 block content
   script(src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r73/three.min.js")
-  script(src="js/visualize.js")
+  script(src="/js/dat.gui.min.js")
+  script(src="/js/OrbitControls.js")
+  script(src="/js/visualize.js")
+  .left(id="info", style="float:left;background-color:rgba(240, 240, 240, 0.85);padding:10px;")
+
+  script.
+    startVis("#{url}")

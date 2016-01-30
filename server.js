@@ -126,8 +126,9 @@ app.post('/upload',function(req,res){
 });
 
 
-app.get("/visualize", function (req, res) {
-	render(res, "visualize.jade", {});
+app.get("/visualize/:url", function (req, res) {
+
+	render(res, "visualize.jade", {url: req.params.url});
 });
 
 app.use(express.static('public'));
