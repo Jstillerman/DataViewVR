@@ -50,7 +50,7 @@ var storage =   multer.diskStorage({
 var upload = multer({ storage : storage}).single('ncFile');
 
 app.get('/',function(req,res){
-	res.sendFile(__dirname + "/index.html");
+	res.redirect("/home");
 });
 
 app.get('/home', function(req, res){
